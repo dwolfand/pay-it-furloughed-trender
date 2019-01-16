@@ -60,6 +60,7 @@ functions:
      - http:
          path: data
          method: get
+         cors: true
   save-data:
     handler: handler.saveData
     events: [{"schedule": "rate(5 minutes)"}]

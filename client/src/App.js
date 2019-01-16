@@ -1,24 +1,85 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import stubData from './stubData';
+import { VictoryChart, VictoryLine, VictoryAxis} from 'victory';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFetching: true,
+      data: stubData.map(({beersDonated, amount, beersRedeemed, redeemed, beersAvailable, createdDate}) => {
+        return {
+          beersDonated: Number(beersDonated),
+          amount: Number(amount),
+          beersRedeemed: Number(beersRedeemed),
+          redeemed: Number(redeemed),
+          beersAvailable: Number(beersAvailable),
+          createdDate: new Date(createdDate),
+        }
+      }),
+    };
+  }
+  componentDidMount() {
+    // fetch('https://9udgrybxqa.execute-api.us-east-1.amazonaws.com/dev/data')
+    // .then((result) => result.json())
+    // .then((data) => {
+    //   this.setState({
+    //     isFetching: false,
+    //     data: data.sort((a, b) => {
+    //       return b.createdDate.localeCompare(a.createdDate);
+    //     }),
+    //   })
+    // })
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          {/* {this.state.data.map((item) => <div>{item.createdDate}-{item.beersAvailable}</div>)} */}
+          <div className="graph">
+            <VictoryChart>
+              {/* <VictoryAxis crossAxis
+                label="Label"
+                tickCount= {2}
+                tickFormat={(t) => new Date(t).toISOString()}
+                style={{
+                  axis: {stroke: "#000000"},
+                  // axisLabel: {fontSize: 20, padding: 30},
+                  ticks: {stroke: "000000"},
+                  // tickLabels: {fontSize: 15, padding: 5}
+                }}
+              />
+              <VictoryAxis dependentAxis crossAxis
+                label="Label"
+                tickCount= {2}
+                tickFormat={(t) => new Date(t).toISOString()}
+                style={{
+                  axis: {stroke: "#000000"},
+                  // axisLabel: {fontSize: 20, padding: 30},
+                  ticks: {stroke: "000000"},
+                  // tickLabels: {fontSize: 15, padding: 5}
+                }}
+              /> */}
+              <VictoryLine 
+                style={{
+                  data: { stroke: "#800000" },
+                  parent: { border: "1px solid #ccc"}
+                }}
+                data={this.state.data} x="createdDate" y="beersRedeemed"/>
+              <VictoryLine 
+                style={{
+                  data: { stroke: "#0000ff" },
+                  parent: { border: "1px solid #ccc"}
+                }}
+                data={this.state.data} x="createdDate" y="beersAvailable"/>
+            </VictoryChart>
+          </div>
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            Let's trend the beers consumed vs beers donated!
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <footer>Data from <a target="_blank" rel="noopener noreferrer" href="https://payitfurloughed.com">payitfurloughed.com</a></footer>
         </header>
       </div>
     );
