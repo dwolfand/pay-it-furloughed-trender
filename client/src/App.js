@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   formatData(data) {
-    const resultData = data.map(({beersDonated, amount, beersRedeemed, redeemed, beersAvailable, createdDate}) => {
+    let resultData = data.map(({beersDonated, amount, beersRedeemed, redeemed, beersAvailable, createdDate}) => {
       return {
         beersDonated: Number(beersDonated),
         amount: Number(amount),
@@ -25,9 +25,11 @@ class App extends Component {
         createdDate: new Date(createdDate),
       }
     });
+    resultData = sortBy(resultData, ['createdDate']);
     return {
       data: resultData,
-      maxDate: sortBy(resultData, ['createdDate'])[resultData.length - 1].createdDate.toISOString(),
+      max: resultData[resultData.length - 1],
+      min: resultData[0],
     }
   }
 
@@ -47,7 +49,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-           Most recent data: {this.state.maxDate}
+          <div>Earliest data: {this.state.min.createdDate.toISOString()} - {this.state.min.beersRedeemed}/{this.state.min.beersDonated}</div>
+          <div>Most recent data: {this.state.max.createdDate.toISOString()} - {this.state.max.beersRedeemed}/{this.state.max.beersDonated}</div>
           <div className="graph">
             <VictoryChart>
               <VictoryAxis
@@ -56,19 +59,19 @@ class App extends Component {
                 tickFormat={(t) => new Date(t).toISOString()}
                 style={{
                   axis: {stroke: "white"},
-                  axisLabel: {stroke: "white"},
+                  axisLabel: {stroke: "white", fill: "white"},
                   ticks: {stroke: "white"},
-                  tickLabels: {stroke:"white"}
+                  tickLabels: {stroke:"white", fill: "white"}
                 }}
               />
               <VictoryAxis dependentAxis
-                label="Count"
+                label=""
                 tickCount= {5}
                 style={{
                   axis: {stroke: "white"},
-                  axisLabel: {stroke: "white"},
+                  axisLabel: {stroke: "white", fill: "white"},
                   ticks: {stroke: "white"},
-                  tickLabels: {stroke:"white"}
+                  tickLabels: {stroke:"white", fill: "white"}
                 }}
               />
               <VictoryLine
