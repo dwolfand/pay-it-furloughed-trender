@@ -1,0 +1,12 @@
+{
+  "name": "pay-it-furloughed-trender-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "sls": "sls"
+  },
+  "dependencies": {
+    "serverless": "^1.36.1"
+  }
+}
