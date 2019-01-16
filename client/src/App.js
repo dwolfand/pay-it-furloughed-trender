@@ -40,28 +40,27 @@ class App extends Component {
           {/* {this.state.data.map((item) => <div>{item.createdDate}-{item.beersAvailable}</div>)} */}
           <div className="graph">
             <VictoryChart>
-              {/* <VictoryAxis crossAxis
-                label="Label"
+              <VictoryAxis
+                label="Date"
                 tickCount= {2}
                 tickFormat={(t) => new Date(t).toISOString()}
                 style={{
-                  axis: {stroke: "#000000"},
-                  // axisLabel: {fontSize: 20, padding: 30},
-                  ticks: {stroke: "000000"},
-                  // tickLabels: {fontSize: 15, padding: 5}
+                  axis: {stroke: "white"},
+                  axisLabel: {stroke: "white"},
+                  ticks: {stroke: "white"},
+                  tickLabels: {stroke:"white"}
                 }}
               />
-              <VictoryAxis dependentAxis crossAxis
-                label="Label"
-                tickCount= {2}
-                tickFormat={(t) => new Date(t).toISOString()}
+              <VictoryAxis dependentAxis
+                label="Count"
+                tickCount= {5}
                 style={{
-                  axis: {stroke: "#000000"},
-                  // axisLabel: {fontSize: 20, padding: 30},
-                  ticks: {stroke: "000000"},
-                  // tickLabels: {fontSize: 15, padding: 5}
+                  axis: {stroke: "white"},
+                  axisLabel: {stroke: "white"},
+                  ticks: {stroke: "white"},
+                  tickLabels: {stroke:"white"}
                 }}
-              /> */}
+              />
               <VictoryLine 
                 style={{
                   data: { stroke: "#800000" },
