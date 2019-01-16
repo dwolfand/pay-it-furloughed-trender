@@ -2,42 +2,52 @@ import React, { Component } from 'react';
 import './App.css';
 import stubData from './stubData';
 import { VictoryChart, VictoryLine, VictoryAxis} from 'victory';
+import sortBy from 'lodash/sortBy';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    const resultData = this.formatData(stubData);
     this.state = {
       isFetching: true,
-      data: stubData.map(({beersDonated, amount, beersRedeemed, redeemed, beersAvailable, createdDate}) => {
-        return {
-          beersDonated: Number(beersDonated),
-          amount: Number(amount),
-          beersRedeemed: Number(beersRedeemed),
-          redeemed: Number(redeemed),
-          beersAvailable: Number(beersAvailable),
-          createdDate: new Date(createdDate),
-        }
-      }),
+      ...resultData,
     };
   }
+
+  formatData(data) {
+    const resultData = data.map(({beersDonated, amount, beersRedeemed, redeemed, beersAvailable, createdDate}) => {
+      return {
+        beersDonated: Number(beersDonated),
+        amount: Number(amount),
+        beersRedeemed: Number(beersRedeemed),
+        redeemed: Number(redeemed),
+        beersAvailable: Number(beersAvailable),
+        createdDate: new Date(createdDate),
+      }
+    });
+    return {
+      data: resultData,
+      maxDate: sortBy(resultData, ['createdDate'])[resultData.length - 1].createdDate.toISOString(),
+    }
+  }
+
   componentDidMount() {
-    // fetch('https://9udgrybxqa.execute-api.us-east-1.amazonaws.com/dev/data')
-    // .then((result) => result.json())
-    // .then((data) => {
-    //   this.setState({
-    //     isFetching: false,
-    //     data: data.sort((a, b) => {
-    //       return b.createdDate.localeCompare(a.createdDate);
-    //     }),
-    //   })
-    // })
+    fetch('https://9udgrybxqa.execute-api.us-east-1.amazonaws.com/dev/data')
+    .then((result) => result.json())
+    .then((data) => {
+      const resultData = this.formatData(data);
+      this.setState({
+        isFetching: false,
+        ...resultData,
+      });
+    })
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {/* {this.state.data.map((item) => <div>{item.createdDate}-{item.beersAvailable}</div>)} */}
+           Most recent data: {this.state.maxDate}
           <div className="graph">
             <VictoryChart>
               <VictoryAxis
@@ -61,13 +71,13 @@ class App extends Component {
                   tickLabels: {stroke:"white"}
                 }}
               />
-              <VictoryLine 
+              <VictoryLine
                 style={{
                   data: { stroke: "#800000" },
                   parent: { border: "1px solid #ccc"}
                 }}
                 data={this.state.data} x="createdDate" y="beersRedeemed"/>
-              <VictoryLine 
+              <VictoryLine
                 style={{
                   data: { stroke: "#0000ff" },
                   parent: { border: "1px solid #ccc"}
