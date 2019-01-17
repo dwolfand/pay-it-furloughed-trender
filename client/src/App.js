@@ -56,7 +56,7 @@ class App extends Component {
         <header className="App-header">
           <div className="graph">
             <VictoryChart
-              padding={{ top: 10, bottom: 30, left: 40, right: 40 }}
+              padding={{ top: 10, bottom: 40, left: 50, right: 40 }}
               containerComponent={
                 <VictoryVoronoiContainer voronoiDimension="sdf"
                   labels={(d) => `${dateFormat(new Date(d.createdDate), "m/d h:MMT")}-${d.beersAvailable}/${d.beersRedeemed}`}
@@ -77,6 +77,7 @@ class App extends Component {
                 ]}
               />
               <VictoryAxis
+                label="Date"
                 tickCount= {4}
                 tickFormat={(t) => dateFormat(new Date(t), "m/d/yy")}
                 style={{
@@ -87,10 +88,11 @@ class App extends Component {
                 }}
               />
               <VictoryAxis dependentAxis
+                label="Count"
                 tickCount= {8}
                 style={{
                   axis: {stroke: "white"},
-                  axisLabel: {stroke: "white", fill: "white", strokeWidth: 0, fontSize: 10},
+                  axisLabel: {stroke: "white", fill: "white", strokeWidth: 0, fontSize: 10, padding: 35},
                   ticks: {stroke: "white"},
                   tickLabels: {stroke:"white", fill: "white", strokeWidth: 0, fontSize: 10}
                 }}
