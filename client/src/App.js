@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import stubData from './stubData';
-import { VictoryChart, VictoryLine, VictoryAxis} from 'victory';
+import dateFormat from 'dateformat';
+import { VictoryChart, VictoryLine, VictoryAxis, VictoryLegend, VictoryVoronoiContainer, VictoryTooltip} from 'victory';
 import sortBy from 'lodash/sortBy';
 
 class App extends Component {
@@ -49,29 +50,45 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <div>Earliest data: {this.state.min.createdDate.toISOString()} - {this.state.min.beersRedeemed}/{this.state.min.beersDonated}</div>
-          <div>Most recent data: {this.state.max.createdDate.toISOString()} - {this.state.max.beersRedeemed}/{this.state.max.beersDonated}</div>
           <div className="graph">
-            <VictoryChart>
+            <VictoryChart
+              padding={{ top: 10, bottom: 30, left: 40, right: 40 }}
+              containerComponent={
+                <VictoryVoronoiContainer voronoiDimension="sdf"
+                  labels={(d) => `${dateFormat(new Date(d.createdDate), "m/d h:MMT")}-${d.beersRedeemed}/${d.beersAvailable},`}
+                  labelComponent={<VictoryTooltip/>}
+                />
+              }
+            >
+              <VictoryLegend x={50} y={10}
+                orientation="vertical"
+                padding={20}
+                style={{
+                  border: { stroke: "white"},
+                  title: {fontSize: 10, fill: "white" } }
+                }
+                data={[
+                  { name: "Available", symbol: { fill: "0000ff" }, labels: { fontSize: 10, fill: "white" }},
+                  { name: "Redeemed", symbol: { fill: "800000" }, labels: { fontSize: 10, fill: "white" } }
+                ]}
+              />
               <VictoryAxis
-                label="Date"
-                tickCount= {2}
-                tickFormat={(t) => new Date(t).toISOString()}
+                tickCount= {4}
+                tickFormat={(t) => dateFormat(new Date(t), "m/d/yy")}
                 style={{
                   axis: {stroke: "white"},
-                  axisLabel: {stroke: "white", fill: "white"},
+                  axisLabel: {stroke: "white", fill: "white", strokeWidth: 0, fontSize: 10},
                   ticks: {stroke: "white"},
-                  tickLabels: {stroke:"white", fill: "white"}
+                  tickLabels: {stroke:"white", fill: "white", strokeWidth: 0, fontSize: 10}
                 }}
               />
               <VictoryAxis dependentAxis
-                label=""
-                tickCount= {5}
+                tickCount= {8}
                 style={{
                   axis: {stroke: "white"},
-                  axisLabel: {stroke: "white", fill: "white"},
+                  axisLabel: {stroke: "white", fill: "white", strokeWidth: 0, fontSize: 10},
                   ticks: {stroke: "white"},
-                  tickLabels: {stroke:"white", fill: "white"}
+                  tickLabels: {stroke:"white", fill: "white", strokeWidth: 0, fontSize: 10}
                 }}
               />
               <VictoryLine

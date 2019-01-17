@@ -2,6 +2,7 @@
   "name": "pay-it-furloughed-trender-client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://dwolfand.github.io/pay-it-furloughed-trender",
   "dependencies": {
     "@babel/core": "7.1.6",
     "@svgr/webpack": "2.4.1",
@@ -15,6 +16,7 @@
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
     "css-loader": "1.0.0",
+    "dateformat": "=3.0.3",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "5.6.0",
