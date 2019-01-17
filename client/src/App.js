@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import stubData from './stubData';
+// import stubData from './stubData';
 import dateFormat from 'dateformat';
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryLegend, VictoryVoronoiContainer, VictoryTooltip} from 'victory';
 import sortBy from 'lodash/sortBy';
@@ -8,11 +8,12 @@ import sortBy from 'lodash/sortBy';
 class App extends Component {
   constructor(props) {
     super(props);
-    const resultData = this.formatData(stubData);
-    this.state = {
-      isFetching: true,
-      ...resultData,
-    };
+    // const resultData = this.formatData(stubData);
+    // this.state = {
+    //   isFetching: true,
+    //   ...resultData,
+    // };
+    this.state = {isFetching: true};
   }
 
   formatData(data) {
@@ -47,6 +48,9 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.isFetching) {
+      return <div className="App"><header className="App-header">Loading</header></div>;
+    }
     return (
       <div className="App">
         <header className="App-header">
@@ -55,8 +59,8 @@ class App extends Component {
               padding={{ top: 10, bottom: 30, left: 40, right: 40 }}
               containerComponent={
                 <VictoryVoronoiContainer voronoiDimension="sdf"
-                  labels={(d) => `${dateFormat(new Date(d.createdDate), "m/d h:MMT")}-${d.beersRedeemed}/${d.beersAvailable}`}
-                  labelComponent={<VictoryTooltip/>}
+                  labels={(d) => `${dateFormat(new Date(d.createdDate), "m/d h:MMT")}-${d.beersAvailable}/${d.beersRedeemed}`}
+                  labelComponent={<VictoryTooltip style={{fontSize: 8}}/>}
                 />
               }
             >
@@ -106,7 +110,7 @@ class App extends Component {
             </VictoryChart>
           </div>
           <p>
-            Let's trend the beers consumed vs beers donated!
+            Let's trend the beers consumed vs beers available!
           </p>
           <footer>Data from <a target="_blank" rel="noopener noreferrer" href="https://payitfurloughed.com">payitfurloughed.com</a></footer>
         </header>
