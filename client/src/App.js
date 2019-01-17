@@ -55,7 +55,7 @@ class App extends Component {
               padding={{ top: 10, bottom: 30, left: 40, right: 40 }}
               containerComponent={
                 <VictoryVoronoiContainer voronoiDimension="sdf"
-                  labels={(d) => `${dateFormat(new Date(d.createdDate), "m/d h:MMT")}-${d.beersRedeemed}/${d.beersAvailable},`}
+                  labels={(d) => `${dateFormat(new Date(d.createdDate), "m/d h:MMT")}-${d.beersRedeemed}/${d.beersAvailable}`}
                   labelComponent={<VictoryTooltip/>}
                 />
               }
