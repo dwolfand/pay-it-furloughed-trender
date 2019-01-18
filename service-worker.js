@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/pay-it-furloughed-trender/precache-manifest.10b2d363b22e5016106ba1957f5c7a4c.js"
+  "/pay-it-furloughed-trender/precache-manifest.5176080ac6710b2e43a4cd95618432db.js"
 );
 
 workbox.clientsClaim();
