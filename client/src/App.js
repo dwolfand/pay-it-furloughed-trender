@@ -72,8 +72,8 @@ class App extends Component {
                   title: {fontSize: 10, fill: "white" } }
                 }
                 data={[
-                  { name: "Available", symbol: { fill: "0000ff" }, labels: { fontSize: 10, fill: "white" }},
-                  { name: "Redeemed", symbol: { fill: "800000" }, labels: { fontSize: 10, fill: "white" } }
+                  { name: "Available", symbol: { fill: "#0000ff" }, labels: { fontSize: 10, fill: "white" }},
+                  { name: "Redeemed", symbol: { fill: "#800000" }, labels: { fontSize: 10, fill: "white" } }
                 ]}
               />
               <VictoryAxis
