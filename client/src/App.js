@@ -114,7 +114,7 @@ class App extends Component {
           <p>
             Let's trend the beers consumed vs beers available!
           </p>
-          <footer>Data from <a target="_blank" rel="noopener noreferrer" href="https://payitfurloughed.com" style={{color: '#ffffff'}}>payitfurloughed.com</a></footer>
+          <footer>Data from <a target="_blank" rel="noopener noreferrer" href="https://payitfurloughed.com">payitfurloughed.com</a></footer>
         </header>
       </div>
     );
