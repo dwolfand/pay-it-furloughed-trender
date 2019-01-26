@@ -11,13 +11,20 @@ function refreshAndReturnResults(docClient) {
         }).promise()
         .then((results) => results.Items)
         .then((items) => {
+            let prunedList = items.sort((a, b)=>{
+                return a < b;
+            });
+            console.log("whats the list", prunedList);
+            prunedList = prunedList.filter((cur, idx) => {
+                return idx % 10 === 0;
+            });
             return docClient
             .update({
                 TableName: 'pay-it-furloughed',
                 Key: {createdDate: 'total'},
                 UpdateExpression: `set agg = :all, expires = :expires`,
                 ExpressionAttributeValues: {
-                    ':all': items,
+                    ':all': prunedList,
                     ':expires': (new Date().getTime() / 1000) + 200,
                 },
                 ReturnValues: 'UPDATED_NEW',
